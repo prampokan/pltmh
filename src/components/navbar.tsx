@@ -11,7 +11,7 @@ import {
 
 export default function Navbar() {
   return (
-    <nav className="w-full h-14 flex items-center px-2 border-b fixed bg-white">
+    <nav className="w-full h-14 flex items-center px-5 border-b fixed bg-white dark:bg-slate-950 z-50">
       <div className="flex items-center gap-x-2">
         <SidebarTrigger />
         <Separator orientation="vertical" className="mr-2 h-4" />
