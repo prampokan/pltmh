@@ -1,20 +1,27 @@
 import Header from "@/components/header";
-import { Chart } from "../components/chart";
+import Kelistrikan from "./components/kelistrikan";
+import Hidrometri1 from "./components/hidrometri1";
+import Hidrometri2 from "./components/hidrometri2";
+import { Chart } from "./components/chart";
 
 export default function Home() {
   return (
     <main>
       <Header
         head="Sistem Monitoring PLTMH"
-        body="Welcome, Lorem ipsum dolor, sit amet consectetur adipisicing elit. Praesentium
-        dolores ullam porro adipisci iure odit expedita amet asperiores."
+        body="Selamat datang di Website Sistem Monitoring dan Prediksi PLTMH Kincang, Banjarnegara. Selamat Bekerja!"
       />
       <div className="grid grid-cols-5 gap-4">
-        <div className="border rounded-md col-span-3 row-span-2"></div>
-        <div className="h-60 border rounded-md"></div>
-        <div className="h-60 border rounded-md"></div>
-        <div className="h-60 border rounded-md col-span-2"></div>
-        <div className="h-96 border rounded-md col-span-5">
+        <div className="rounded-md col-span-5 md:col-span-3">
+          <Kelistrikan />
+        </div>
+        <div className="rounded-md col-span-5 md:col-span-2">
+          <Hidrometri1 />
+        </div>
+        <div className="rounded-md col-span-5 md:col-span-2">
+          <Hidrometri2 />
+        </div>
+        <div className="rounded-md col-span-5 md:col-span-3">
           <Chart />
         </div>
       </div>
