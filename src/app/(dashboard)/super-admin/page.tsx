@@ -13,29 +13,37 @@ import { Pen, Trash } from "lucide-react";
 
 const data = [
   {
-    id: "1",
-    sensor: "Hidrometri",
+    email: "johndoe@mail.com",
+    name: "John Doe",
+    role: "Super Admin",
   },
 ];
 
-export default function Sensors() {
+export default function SuperAdmin() {
   return (
     <>
-      <Header head="Data Sensor" body="Menampilkan semua data sensor." />
+      <Header
+        head="Data Super Admin"
+        body="Menampilkan semua data super admin."
+      />
       <Table>
-        <TableCaption>Menampilkan semua data sensor.</TableCaption>
+        <TableCaption>Menampilkan semua data super admin.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">NO</TableHead>
-            <TableHead>Sensor</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>Nama Lengkap</TableHead>
+            <TableHead>Role</TableHead>
             <TableHead className="text-right">Aksi</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((data) => (
-            <TableRow key={data.id}>
-              <TableCell className="font-medium">{data.id}</TableCell>
-              <TableCell>{data.sensor}</TableCell>
+          {data.map((data, i) => (
+            <TableRow key={i}>
+              <TableCell className="font-medium">{i + 1}</TableCell>
+              <TableCell>{data.email}</TableCell>
+              <TableCell>{data.name}</TableCell>
+              <TableCell>{data.role}</TableCell>
               <TableCell className="text-right space-x-2">
                 <Button size="icon" variant="outline">
                   <Pen />

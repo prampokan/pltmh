@@ -122,7 +122,7 @@ export function AppSidebar() {
                   asChild
                   className="hover:bg-slate-100 dark:hover:bg-slate-900"
                 >
-                  <Link href={"/"}>
+                  <Link href={"/sensors"}>
                     <Cog />
                     <span>Sensors</span>
                   </Link>
@@ -151,7 +151,7 @@ export function AppSidebar() {
                   asChild
                   className="hover:bg-slate-100 dark:hover:bg-slate-900"
                 >
-                  <Link href={"/"}>
+                  <Link href={"/super-admin"}>
                     <UserRoundCheck />
                     <span>Super Admin</span>
                   </Link>

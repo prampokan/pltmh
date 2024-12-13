@@ -6,7 +6,7 @@ export default function Home() {
     <main>
       <Header
         head="Sistem Monitoring PLTMH"
-        body="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Praesentium
+        body="Welcome, Lorem ipsum dolor, sit amet consectetur adipisicing elit. Praesentium
         dolores ullam porro adipisci iure odit expedita amet asperiores."
       />
       <div className="grid grid-cols-5 gap-4">
