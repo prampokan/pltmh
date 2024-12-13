@@ -1,13 +1,13 @@
-export default function Header() {
+interface Props {
+  head: string;
+  body: string;
+}
+
+export default function Header({ head, body }: Props) {
   return (
     <div className="mb-7 w-full max-w-[40rem]">
-      <h1 className="text-lg font-medium tracking-tight">
-        Sistem Monitoring PLTMH
-      </h1>
-      <p className="mt-2 text-slate-500 leading-relaxed">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Praesentium
-        dolores ullam porro adipisci iure odit expedita amet asperiores.
-      </p>
+      <h1 className="text-2xl font-semibold tracking-tight">{head}</h1>
+      <p className="mt-2 text-muted-foreground leading-relaxed">{body}</p>
     </div>
   );
 }

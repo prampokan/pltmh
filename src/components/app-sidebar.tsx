@@ -45,7 +45,7 @@ export function AppSidebar() {
                 height={30}
                 className="rounded"
               />
-              <h1 className="font-medium tracking-tight">PLTMH Kincang</h1>
+              <h1 className="font-semibold tracking-tight">Indonesia Power</h1>
             </div>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -103,7 +103,7 @@ export function AppSidebar() {
           </DropdownMenu>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel>Monitoring</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
