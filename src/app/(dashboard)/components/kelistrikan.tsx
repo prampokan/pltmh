@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Image from "next/image";
 
 export default function Kelistrikan() {
   return (
@@ -20,7 +21,9 @@ export default function Kelistrikan() {
           </CardDescription>
         </div>
       </CardHeader>
-      <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6"></CardContent>
+      <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6 flex justify-center items-center">
+        <Image src="/pltmh.png" alt="pltmh" width={480} height={480} />
+      </CardContent>
     </Card>
   );
 }
