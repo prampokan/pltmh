@@ -34,7 +34,7 @@ import { ThemeToggler } from "./theme-toggler";
 export function AppSidebar() {
   return (
     <Sidebar>
-      <SidebarHeader className="h-14 border-b justify-center bg-white dark:bg-slate-950">
+      <SidebarHeader className="h-14 border-b justify-center bg-white dark:bg-slate-950 cursor-default">
         <SidebarMenu>
           <SidebarMenuItem>
             <div className="flex items-center gap-x-3 ml-2">
@@ -63,8 +63,8 @@ export function AppSidebar() {
                   className="rounded-lg"
                 />
                 <div className="">
-                  <h1 className="font-semibold text-sm tracking-tight">
-                    Erwin Adriono
+                  <h1 className="font-semibold text-sm tracking-tight max-w-36">
+                    John Doe
                   </h1>
                   <p className="text-xs">Super Admin</p>
                 </div>
@@ -84,9 +84,7 @@ export function AppSidebar() {
                   className="rounded-lg"
                 />
                 <div>
-                  <h1 className="font-semibold tracking-tight">
-                    Erwin Adriono
-                  </h1>
+                  <h1 className="font-semibold tracking-tight">John Doe</h1>
                   <p className="text-xs">Super Admin</p>
                 </div>
               </DropdownMenuItem>
