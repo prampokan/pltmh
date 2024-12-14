@@ -21,11 +21,11 @@ import { telemetryHidrometri } from "@/service";
 const chartConfig = {
   tinggi: {
     label: "Tinggi Sungai",
-    color: "hsl(var(--chart-1))",
+    color: "#2563eb",
   },
   debit: {
     label: "Debit Air",
-    color: "hsl(var(--chart-2))",
+    color: "#60a5fa",
   },
 } satisfies ChartConfig;
 

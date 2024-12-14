@@ -153,14 +153,10 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <div className="absolute bottom-3 w-full flex items-center gap-x-2 px-2">
-          <Button variant="outline" className="w-full">
-            <LogOut />
-            Sign out
-          </Button>
-          <div>
-            <ThemeToggler />
-          </div>
+        <div className="absolute bottom-0 w-full flex items-center justify-center gap-x-2 px-2 h-10 bg-gradient-to-t from-white dark:from-slate-950 from-50% to-transparent">
+          <p className="text-xs text-muted-foreground">
+            © 2024. All Rights Reserved.
+          </p>
         </div>
       </SidebarContent>
     </Sidebar>
