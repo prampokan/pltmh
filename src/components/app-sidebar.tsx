@@ -24,12 +24,23 @@ import {
   LogOut,
   ChartSpline,
   Cog,
-  CalendarCog,
   UserRoundCheck,
   UserCog,
+  UserPen,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { ThemeToggler } from "./theme-toggler";
+
+const monitoring = [
+  { icon: <ChartSpline />, name: "Dashboard", href: "/" },
+  { icon: <Cog />, name: "Devices", href: "/devices" },
+];
+
+const master = [
+  { icon: <UserRoundCheck />, name: "Super Admin", href: "/super-admin" },
+  { icon: <UserPen />, name: "Admin", href: "/" },
+  { icon: <UserCog />, name: "Teknisi", href: "/" },
+];
 
 export function AppSidebar() {
   return (
@@ -106,28 +117,19 @@ export function AppSidebar() {
           <SidebarGroupLabel>Monitoring</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  className="hover:bg-slate-100 dark:hover:bg-slate-900"
-                >
-                  <Link href={"/"}>
-                    <ChartSpline />
-                    <span>Dashboard</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  className="hover:bg-slate-100 dark:hover:bg-slate-900"
-                >
-                  <Link href={"/devices"}>
-                    <Cog />
-                    <span>Devices</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              {monitoring.map((item, i) => (
+                <SidebarMenuItem key={i}>
+                  <SidebarMenuButton
+                    asChild
+                    className="hover:bg-slate-100 dark:hover:bg-slate-900"
+                  >
+                    <Link href={item.href}>
+                      {item.icon}
+                      <span>{item.name}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -135,39 +137,19 @@ export function AppSidebar() {
           <SidebarGroupLabel>Master Data</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  className="hover:bg-slate-100 dark:hover:bg-slate-900"
-                >
-                  <Link href={"/super-admin"}>
-                    <UserRoundCheck />
-                    <span>Super Admin</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  className="hover:bg-slate-100 dark:hover:bg-slate-900"
-                >
-                  <Link href={"/"}>
-                    <UserCog />
-                    <span>Admin</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  className="hover:bg-slate-100 dark:hover:bg-slate-900"
-                >
-                  <Link href={"/"}>
-                    <UserCog />
-                    <span>Teknisi</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              {master.map((item, i) => (
+                <SidebarMenuItem key={i}>
+                  <SidebarMenuButton
+                    asChild
+                    className="hover:bg-slate-100 dark:hover:bg-slate-900"
+                  >
+                    <Link href={item.href}>
+                      {item.icon}
+                      <span>{item.name}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

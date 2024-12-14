@@ -105,17 +105,19 @@ export function useTelemetryData(deviceId: any, cmdId: any) {
           console.log("Telemetry data received:", response.data);
 
           if (response.data) {
-            const suhu = response.data.suhu ? response.data.suhu[0][1] : null;
-            const temperature = response.data.temperature
-              ? response.data.temperature[0][1]
+            const tinggiSungai = response.data.tinggiSungai
+              ? response.data.tinggiSungai[0][1]
+              : null;
+            const debitAir = response.data.debitAir
+              ? response.data.debitAir[0][1]
               : null;
 
-            if (suhu !== null && temperature !== null) {
+            if (tinggiSungai !== null && debitAir !== null) {
               setData((prevData) => [
                 ...prevData,
                 {
-                  suhu: suhu,
-                  temperature: temperature,
+                  tinggiSungai: tinggiSungai,
+                  debitAir: debitAir,
                 },
               ]);
             }

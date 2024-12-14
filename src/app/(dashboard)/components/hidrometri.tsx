@@ -59,7 +59,10 @@ export default function Hidrometri({ deviceId, cmdId, title }: any) {
             <div className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
               <span className="text-xs text-muted-foreground">Tinggi</span>
               <span className="text-lg font-bold leading-none sm:text-xl">
-                <h1>{data[data.length - 1].suhu}</h1>
+                <h1 className="flex items-center gap-1">
+                  {data[data.length - 1].tinggiSungai}{" "}
+                  <span className="text-xs font-thin">m</span>
+                </h1>
               </span>
             </div>
           )}
@@ -68,7 +71,10 @@ export default function Hidrometri({ deviceId, cmdId, title }: any) {
             <div className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
               <span className="text-xs text-muted-foreground">Debit</span>
               <span className="text-lg font-bold leading-none sm:text-xl">
-                <h1>{data[data.length - 1].temperature}</h1>{" "}
+                <h1 className="flex items-center gap-1">
+                  {data[data.length - 1].debitAir}{" "}
+                  <span className="text-xs font-thin">m³/s</span>
+                </h1>{" "}
               </span>
             </div>
           )}
