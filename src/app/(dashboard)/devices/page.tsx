@@ -16,7 +16,7 @@ import Link from "next/link";
 import { Pen, Trash, Plus } from "lucide-react";
 import { getDevices } from "@/service";
 
-export default function Sensors() {
+export default function Devices() {
   const [devices, setDevices] = useState([]);
 
   useEffect(() => {
@@ -33,19 +33,19 @@ export default function Sensors() {
 
   return (
     <>
-      <Header head="Data Sensor" body="Menampilkan semua data sensor." />
-      <Link href="/sensors/add">
+      <Header head="Data Devices" body="Menampilkan semua data devices." />
+      <Link href="/devices/add">
         <Button className="mb-7" variant="outline">
           <Plus />
-          Tambah Sensor
+          Tambah Device
         </Button>
       </Link>
       <Table>
-        <TableCaption>Menampilkan semua data sensor.</TableCaption>
+        <TableCaption>Menampilkan semua data devices.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">NO</TableHead>
-            <TableHead>Sensor</TableHead>
+            <TableHead>Device</TableHead>
             <TableHead className="text-right">Aksi</TableHead>
           </TableRow>
         </TableHeader>

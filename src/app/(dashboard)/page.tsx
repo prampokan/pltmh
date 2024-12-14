@@ -1,7 +1,6 @@
 import Header from "@/components/header";
 import Kelistrikan from "./components/kelistrikan";
-import Hidrometri1 from "./components/hidrometri1";
-import Hidrometri2 from "./components/hidrometri2";
+import Hidrometri from "./components/hidrometri";
 
 export default function Home() {
   return (
@@ -12,10 +11,18 @@ export default function Home() {
       />
       <div className="grid grid-cols-2 gap-4">
         <div className="col-span-2 md:col-span-1">
-          <Hidrometri1 />
+          <Hidrometri
+            title="Hidrometri 1"
+            deviceId="icAiGJGWb6tLbwYCsCei"
+            cmdId="10"
+          />
         </div>
         <div className="col-span-2 md:col-span-1">
-          <Hidrometri2 />
+          <Hidrometri
+            title="Hidrometri 2"
+            deviceId="x5IuCisDQZolEVkOmaJW"
+            cmdId="20"
+          />
         </div>
         <div className="col-span-2">
           <Kelistrikan />

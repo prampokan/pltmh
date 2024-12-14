@@ -18,7 +18,7 @@ export default function Add() {
   const router = useRouter();
   const { toast } = useToast();
 
-  const addSensor = async (e: any) => {
+  const addDevice = async (e: any) => {
     e.preventDefault();
     try {
       await addDoc(collection(db, "devices"), {
@@ -33,13 +33,13 @@ export default function Add() {
         title: "Device baru ditambahkan",
         description: "Device baru telah ditambahkan.",
       });
-      router.push("/sensors");
+      router.push("/devices");
     }
   };
   return (
     <div>
-      <Header head="Tambah Sensor Baru" body="Tambah Sensor Baru." />
-      <form onSubmit={addSensor} className="w-full md:w-1/2">
+      <Header head="Tambah Device Baru" body="Tambah Device Baru." />
+      <form onSubmit={addDevice} className="w-full md:w-1/2">
         <Label>Entity Type</Label>
         <Input
           type="text"
@@ -59,7 +59,7 @@ export default function Add() {
           required
         />
         <div className="flex justify-between">
-          <Link href="/sensors">
+          <Link href="/devices">
             <Button type="submit" variant="outline">
               Batal
             </Button>

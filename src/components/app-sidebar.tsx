@@ -122,20 +122,9 @@ export function AppSidebar() {
                   asChild
                   className="hover:bg-slate-100 dark:hover:bg-slate-900"
                 >
-                  <Link href={"/sensors"}>
+                  <Link href={"/devices"}>
                     <Cog />
-                    <span>Sensors</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  className="hover:bg-slate-100 dark:hover:bg-slate-900"
-                >
-                  <Link href={"/"}>
-                    <CalendarCog />
-                    <span>Sensor Parameters</span>
+                    <span>Devices</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -165,6 +154,17 @@ export function AppSidebar() {
                   <Link href={"/"}>
                     <UserCog />
                     <span>Admin</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  className="hover:bg-slate-100 dark:hover:bg-slate-900"
+                >
+                  <Link href={"/"}>
+                    <UserCog />
+                    <span>Teknisi</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

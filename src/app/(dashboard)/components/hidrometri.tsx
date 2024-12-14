@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useState, useEffect } from "react";
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 import {
   ChartConfig,
@@ -17,7 +16,6 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart";
-import { loginThingsBoard, getDeviceById } from "@/service";
 import { useTelemetryData } from "@/service";
 
 const chartConfig = {
@@ -31,8 +29,8 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export default function Hidrometri2() {
-  const data = useTelemetryData("x5IuCisDQZolEVkOmaJW", 40);
+export default function Hidrometri({ deviceId, cmdId, title }: any) {
+  const data = useTelemetryData(deviceId, cmdId);
 
   const chartData = [
     { month: "January", tinggi: 186, debit: 80 },
@@ -53,7 +51,7 @@ export default function Hidrometri2() {
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <CardTitle>Hidrometri 2</CardTitle>
+          <CardTitle>{title}</CardTitle>
           <CardDescription>Tinggi Sungai & Debit Air</CardDescription>
         </div>
         <div className="flex">
