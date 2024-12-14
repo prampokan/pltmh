@@ -7,8 +7,8 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore";
-import { useState, useEffect, useRef } from "react";
-type TelemetryData = Record<string, any>;
+import { useState, useEffect } from "react";
+type TelemetryHidrometri = Record<string, any>;
 
 export async function loginThingsBoard() {
   try {
@@ -64,8 +64,8 @@ export async function getDeviceById(id: any) {
 
 const token = await loginThingsBoard();
 
-export function useTelemetryData(deviceId: any, cmdId: any) {
-  const [data, setData] = useState<TelemetryData[]>([]);
+export function telemetryHidrometri(deviceId: any, cmdId: any) {
+  const [data, setData] = useState<TelemetryHidrometri[]>([]);
 
   useEffect(() => {
     const connectWebSocket = async () => {

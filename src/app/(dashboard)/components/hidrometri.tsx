@@ -16,7 +16,7 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart";
-import { useTelemetryData } from "@/service";
+import { telemetryHidrometri } from "@/service";
 
 const chartConfig = {
   tinggi: {
@@ -30,7 +30,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export default function Hidrometri({ deviceId, cmdId, title }: any) {
-  const data = useTelemetryData(deviceId, cmdId);
+  const data = telemetryHidrometri(deviceId, cmdId);
 
   const chartData = [
     { month: "January", tinggi: 186, debit: 80 },
@@ -80,7 +80,6 @@ export default function Hidrometri({ deviceId, cmdId, title }: any) {
           )}
         </div>
       </CardHeader>
-
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer config={chartConfig}>
           <LineChart
