@@ -31,8 +31,6 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-type TelemetryData = Record<string, any>;
-
 export default function Hidrometri2() {
   const data = useTelemetryData("x5IuCisDQZolEVkOmaJW", 40);
 

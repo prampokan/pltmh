@@ -17,7 +17,7 @@ export default function Home() {
         <div className="col-span-2 md:col-span-1">
           <Hidrometri2 />
         </div>
-        <div className="md:col-span-2">
+        <div className="col-span-2">
           <Kelistrikan />
         </div>
       </div>
