@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -9,19 +12,34 @@ import {
 } from "@/components/ui/table";
 import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
-import { Pen, Trash } from "lucide-react";
-
-const data = [
-  {
-    id: "1",
-    sensor: "Hidrometri",
-  },
-];
+import Link from "next/link";
+import { Pen, Trash, Plus } from "lucide-react";
+import { getDevices } from "@/service";
 
 export default function Sensors() {
+  const [devices, setDevices] = useState([]);
+
+  useEffect(() => {
+    const fetchDevices = async () => {
+      try {
+        const data = await getDevices();
+        setDevices(data);
+      } catch (error) {
+        console.error("Error fetching devices: ", error);
+      }
+    };
+    fetchDevices();
+  }, []);
+
   return (
     <>
       <Header head="Data Sensor" body="Menampilkan semua data sensor." />
+      <Link href="/sensors/add">
+        <Button className="mb-7" variant="outline">
+          <Plus />
+          Tambah Sensor
+        </Button>
+      </Link>
       <Table>
         <TableCaption>Menampilkan semua data sensor.</TableCaption>
         <TableHeader>
@@ -32,10 +50,10 @@ export default function Sensors() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((data) => (
-            <TableRow key={data.id}>
-              <TableCell className="font-medium">{data.id}</TableCell>
-              <TableCell>{data.sensor}</TableCell>
+          {devices.map((device: any, i) => (
+            <TableRow key={device.id}>
+              <TableCell className="font-medium">{i + 1}</TableCell>
+              <TableCell>{device.entityType}</TableCell>
               <TableCell className="text-right space-x-2">
                 <Button size="icon" variant="outline">
                   <Pen />

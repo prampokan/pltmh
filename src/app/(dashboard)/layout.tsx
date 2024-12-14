@@ -4,6 +4,7 @@ import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function DashboardLayout({
             <SidebarInset>
               <Navbar />
               <div className="py-20 px-5">{children}</div>
+              <Toaster />
             </SidebarInset>
           </SidebarProvider>
         </ThemeProvider>
