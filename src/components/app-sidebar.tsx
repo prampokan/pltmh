@@ -27,9 +27,8 @@ import {
   UserRoundCheck,
   UserCog,
   UserPen,
+  UserRound,
 } from "lucide-react";
-import { Button } from "./ui/button";
-import { ThemeToggler } from "./theme-toggler";
 
 const monitoring = [
   { icon: <ChartSpline />, name: "Dashboard", href: "/" },
@@ -61,18 +60,14 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent className="bg-white dark:bg-slate-950">
+      <SidebarContent className="bg-white dark:bg-slate-950 pb-20">
         <SidebarGroup>
           <DropdownMenu>
             <DropdownMenuTrigger asChild className="mt-2">
               <div className="flex items-center cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-900 transition-all p-2 rounded-md gap-2 relative">
-                <Image
-                  src="/shadcn.jpg"
-                  alt="shadcn"
-                  width={35}
-                  height={35}
-                  className="rounded-lg"
-                />
+                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-500 rounded-lg flex items-center justify-center">
+                  <UserRound size="20" />
+                </div>
                 <div className="">
                   <h1 className="font-semibold text-sm tracking-tight max-w-36">
                     John Doe
@@ -87,13 +82,9 @@ export function AppSidebar() {
               align="start"
             >
               <DropdownMenuItem className="m-1.5">
-                <Image
-                  src="/shadcn.jpg"
-                  alt="shadcn"
-                  width={35}
-                  height={35}
-                  className="rounded-lg"
-                />
+                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-500 rounded-lg flex items-center justify-center">
+                  <UserRound size="20" />
+                </div>
                 <div>
                   <h1 className="font-semibold tracking-tight">John Doe</h1>
                   <p className="text-xs">Super Admin</p>
@@ -108,7 +99,7 @@ export function AppSidebar() {
               </Link>
               <DropdownMenuItem className="m-1.5">
                 <LogOut />
-                <span>Sign Out</span>
+                <span>Log out</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
