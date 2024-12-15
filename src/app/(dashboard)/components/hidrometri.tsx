@@ -56,7 +56,7 @@ export default function Hidrometri({ deviceId, cmdId, title }: any) {
         </div>
         <div className="flex">
           {data && data.length > 0 && (
-            <div className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
+            <div className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8">
               <span className="text-xs text-muted-foreground">Tinggi</span>
               <span className="text-lg font-bold leading-none sm:text-xl">
                 <h1 className="flex items-center gap-1">
@@ -68,7 +68,7 @@ export default function Hidrometri({ deviceId, cmdId, title }: any) {
           )}
 
           {data && data.length > 0 && (
-            <div className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
+            <div className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8">
               <span className="text-xs text-muted-foreground">Debit</span>
               <span className="text-lg font-bold leading-none sm:text-xl">
                 <h1 className="flex items-center gap-1">

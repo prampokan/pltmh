@@ -68,8 +68,8 @@ export function AppSidebar() {
                 <div className="w-8 h-8 bg-blue-100 dark:bg-blue-500 rounded-lg flex items-center justify-center">
                   <UserRound size="20" />
                 </div>
-                <div className="">
-                  <h1 className="font-semibold text-sm tracking-tight max-w-36">
+                <div className="max-w-40">
+                  <h1 className="font-semibold text-sm tracking-tight truncate">
                     John Doe
                   </h1>
                   <p className="text-xs">Super Admin</p>
@@ -85,8 +85,10 @@ export function AppSidebar() {
                 <div className="w-8 h-8 bg-blue-100 dark:bg-blue-500 rounded-lg flex items-center justify-center">
                   <UserRound size="20" />
                 </div>
-                <div>
-                  <h1 className="font-semibold tracking-tight">John Doe</h1>
+                <div className="max-w-40">
+                  <h1 className="font-semibold tracking-tight truncate">
+                    johndoe@mail.com
+                  </h1>
                   <p className="text-xs">Super Admin</p>
                 </div>
               </DropdownMenuItem>
