@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -29,6 +31,11 @@ import {
   UserPen,
   UserRound,
 } from "lucide-react";
+import { AccountSkeleton } from "./skeleton";
+import { auth } from "@/lib/firebase";
+import { useState, useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { getCurrentUser } from "@/service";
 
 const monitoring = [
   { icon: <ChartSpline />, name: "Dashboard", href: "/" },
@@ -42,6 +49,38 @@ const master = [
 ];
 
 export function AppSidebar() {
+  const [user, loading, error] = useAuthState(auth);
+  const [userData, setUserData] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!user) {
+        console.log("No user");
+        return;
+      }
+      try {
+        const data = await getCurrentUser(user.uid);
+        setUserData(data);
+      } catch (error) {
+        console.error("Error fetching devices: ", error);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const handleSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        document.cookie =
+          "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; secure; samesite=strict";
+        window.location.href = "/login";
+      })
+      .catch((error) => {
+        console.error("Error during sign out:", error);
+      });
+  };
+
   return (
     <Sidebar>
       <SidebarHeader className="h-14 border-b justify-center bg-white dark:bg-slate-950 cursor-default">
@@ -63,20 +102,25 @@ export function AppSidebar() {
       <SidebarContent className="bg-white dark:bg-slate-950 pb-20">
         <SidebarGroup>
           <DropdownMenu>
-            <DropdownMenuTrigger asChild className="mt-2">
-              <div className="flex items-center cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-900 transition-all p-2 rounded-md gap-2 relative">
-                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-500 rounded-lg flex items-center justify-center">
-                  <UserRound size="20" />
+            {userData ? (
+              <DropdownMenuTrigger asChild className="mt-2 h-14">
+                <div className="flex items-center cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-900 transition-all p-2 rounded-md gap-2 relative">
+                  <div className="w-8 h-8 bg-blue-100 dark:bg-blue-500 rounded-lg flex items-center justify-center">
+                    <UserRound size="20" />
+                  </div>
+                  <div className="max-w-40">
+                    <h1 className="font-semibold text-sm tracking-tight truncate capitalize">
+                      {userData?.name}
+                    </h1>
+                    <p className="text-xs capitalize">{userData?.role}</p>
+                  </div>
+                  <ChevronsUpDown className="absolute right-3" size={16} />
                 </div>
-                <div className="max-w-40">
-                  <h1 className="font-semibold text-sm tracking-tight truncate">
-                    John Doe
-                  </h1>
-                  <p className="text-xs">Super Admin</p>
-                </div>
-                <ChevronsUpDown className="absolute right-3" size={16} />
-              </div>
-            </DropdownMenuTrigger>
+              </DropdownMenuTrigger>
+            ) : (
+              <AccountSkeleton />
+            )}
+
             <DropdownMenuContent
               className="w-[--radix-dropdown-menu-trigger-width]"
               align="start"
@@ -87,9 +131,9 @@ export function AppSidebar() {
                 </div>
                 <div className="max-w-40">
                   <h1 className="font-semibold tracking-tight truncate">
-                    johndoe@mail.com
+                    {userData?.email}
                   </h1>
-                  <p className="text-xs">Super Admin</p>
+                  <p className="text-xs capitalize">{userData?.role}</p>
                 </div>
               </DropdownMenuItem>
               <Separator />
@@ -99,7 +143,7 @@ export function AppSidebar() {
                   <span>My Profile</span>
                 </DropdownMenuItem>
               </Link>
-              <DropdownMenuItem className="m-1.5">
+              <DropdownMenuItem className="m-1.5" onClick={handleSignOut}>
                 <LogOut />
                 <span>Log out</span>
               </DropdownMenuItem>

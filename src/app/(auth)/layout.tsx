@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggler } from "@/components/theme-toggler";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,16 +37,17 @@ export default function AuthLayout({
           disableTransitionOnChange
         >
           <main className="flex w-full h-screen">
-            <div className="w-full sm:w-1/2 p-5 flex justify-center items-center relative">
+            <div className="w-full sm:w-1/2 p-5 flex justify-center items-center relative border-r">
               <div className="absolute right-5 top-5">
                 <ThemeToggler />
               </div>
               {children}
             </div>
-            <div className="border w-1/2 justify-center items-center hidden sm:flex">
+            <div className="w-1/2 justify-center items-center hidden sm:flex">
               LOGO
             </div>
           </main>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

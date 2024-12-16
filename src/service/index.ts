@@ -10,6 +10,19 @@ import {
 import { useState, useEffect } from "react";
 type TelemetryHidrometri = Record<string, any>;
 
+export async function getCurrentUser(uid: string) {
+  if (!uid) return;
+  const docRef = doc(db, "users", uid);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    const data: any = docSnap.data();
+    return data;
+  } else {
+    console.log("No such document!");
+  }
+}
+
 export async function loginThingsBoard() {
   try {
     const response = await fetch("https://thingsboard.cloud/api/auth/login", {
@@ -53,6 +66,7 @@ export async function getDevices() {
 export async function getDeviceById(id: any) {
   const docRef = doc(db, "devices", id);
   const docSnap = await getDoc(docRef);
+
   if (docSnap.exists()) {
     const data = docSnap.data();
     const entityId = data.entityId;
