@@ -8,8 +8,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import { LatestTelemetry } from "@/service";
 
 export default function Kelistrikan() {
+  const data = LatestTelemetry("70cdcc61-bb83-11ef-b4c6-db1be78f4574", 10);
+
   return (
     <Card className="h-full">
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
@@ -22,7 +25,11 @@ export default function Kelistrikan() {
         </div>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6 flex justify-center items-center">
-        <Image src="/pltmh.png" alt="pltmh" width={1000} height={1000} />
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+        {data && data.Value20 && data.Value20[0] && data.Value20[0][1] && (
+          <p>Putaran Turbin : {data.Value20[0][1]}</p>
+        )}
+        {/* <Image src="/pltmh.png" alt="pltmh" width={1000} height={1000} /> */}
       </CardContent>
     </Card>
   );

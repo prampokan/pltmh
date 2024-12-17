@@ -8,7 +8,6 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { useState, useEffect } from "react";
-type TelemetryHidrometri = Record<string, any>;
 
 export async function getCurrentUser(uid: string) {
   if (!uid) return;
@@ -78,8 +77,8 @@ export async function getDeviceById(id: any) {
 
 const token = await loginThingsBoard();
 
-export function telemetryHidrometri(deviceId: any, cmdId: any) {
-  const [data, setData] = useState<TelemetryHidrometri[]>([]);
+export function LatestTelemetry(deviceId: any, cmdId: any) {
+  const [data, setData] = useState<any>([]);
 
   useEffect(() => {
     const connectWebSocket = async () => {
@@ -93,7 +92,7 @@ export function telemetryHidrometri(deviceId: any, cmdId: any) {
           `wss://thingsboard.cloud/api/ws/plugins/telemetry?token=${token}`
         );
 
-        const entityId = await getDeviceById(deviceId);
+        // const entityId = await getDeviceById(deviceId);
 
         ws.onopen = () => {
           console.log("WebSocket connected");
@@ -102,40 +101,21 @@ export function telemetryHidrometri(deviceId: any, cmdId: any) {
               tsSubCmds: [
                 {
                   entityType: "DEVICE",
-                  entityId: entityId,
+                  entityId: deviceId,
                   scope: "LATEST_TELEMETRY",
                   cmdId: cmdId,
                   type: "TIMESERIES",
                 },
               ],
-              historyCmds: [],
-              attrSubCmds: [],
             })
           );
         };
 
         ws.onmessage = (message) => {
           const response = JSON.parse(message.data);
-          console.log("Telemetry data received:", response.data);
+          console.log("Telemetry received:", response.data);
 
-          if (response.data) {
-            const tinggiSungai = response.data.tinggiSungai
-              ? response.data.tinggiSungai[0][1]
-              : null;
-            const debitAir = response.data.debitAir
-              ? response.data.debitAir[0][1]
-              : null;
-
-            if (tinggiSungai !== null && debitAir !== null) {
-              setData((prevData) => [
-                ...prevData,
-                {
-                  tinggiSungai: tinggiSungai,
-                  debitAir: debitAir,
-                },
-              ]);
-            }
-          }
+          setData(response.data);
         };
 
         ws.onerror = (error) => console.error("WebSocket error:", error);
@@ -148,7 +128,7 @@ export function telemetryHidrometri(deviceId: any, cmdId: any) {
     };
 
     connectWebSocket();
-  }, [deviceId, cmdId]);
+  }, []);
 
   return data;
 }
