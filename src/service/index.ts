@@ -75,6 +75,20 @@ export async function getDeviceById(id: any) {
   }
 }
 
+export async function getUsers() {
+  try {
+    const q = query(collection(db, "users"));
+    const snapshot = await getDocs(q);
+    const data: any = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return data;
+  } catch (error) {
+    console.error("Error getting devices: ", error);
+  }
+}
+
 const token = await loginThingsBoard();
 
 export function LatestTelemetry(deviceId: any, cmdId: any) {

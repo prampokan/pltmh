@@ -42,11 +42,7 @@ const monitoring = [
   { icon: <Cog />, name: "Devices", href: "/devices" },
 ];
 
-const master = [
-  { icon: <UserRoundCheck />, name: "Super Admin", href: "/super-admin" },
-  { icon: <UserPen />, name: "Admin", href: "/" },
-  { icon: <UserCog />, name: "Teknisi", href: "/" },
-];
+const master = [{ icon: <UserRound />, name: "User Data", href: "/user-data" }];
 
 export function AppSidebar() {
   const [user, loading, error] = useAuthState(auth);
@@ -137,7 +133,7 @@ export function AppSidebar() {
                 </div>
               </DropdownMenuItem>
               <Separator />
-              <Link href={"/"}>
+              <Link href={"/profile"}>
                 <DropdownMenuItem className="m-1.5">
                   <UserRoundPen />
                   <span>My Profile</span>
