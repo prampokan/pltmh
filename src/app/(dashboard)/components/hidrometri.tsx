@@ -30,7 +30,9 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export default function Hidrometri() {
-  const data = LatestTelemetry("6084a3b0-bb83-11ef-8a8c-99b651c1f145", 20);
+  const data = LatestTelemetry("50826780-ec35-11ef-9389-77a321a8daf2", 20);
+
+  console.log("hidrometri :", data);
 
   const chartData = [
     { month: "January", tinggi: 186, debit: 80 },

@@ -11,7 +11,7 @@ import Image from "next/image";
 import { LatestTelemetry } from "@/service";
 
 export default function Kelistrikan() {
-  const data = LatestTelemetry("70cdcc61-bb83-11ef-b4c6-db1be78f4574", 10);
+  const data = LatestTelemetry("e2d1b230-ec35-11ef-9389-77a321a8daf2", 10);
 
   return (
     <Card className="h-full">
