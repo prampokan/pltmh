@@ -32,8 +32,6 @@ const chartConfig = {
 export default function Hidrometri() {
   const data = LatestTelemetry("50826780-ec35-11ef-9389-77a321a8daf2", 20);
 
-  console.log("hidrometri :", data);
-
   const chartData = [
     { month: "January", tinggi: 186, debit: 80 },
     { month: "February", tinggi: 305, debit: 200 },
@@ -74,17 +72,18 @@ export default function Hidrometri() {
                 </span>
               </div>
             )}
-
           {data &&
-            data.smallInstataneous &&
-            data.smallInstataneous[0] &&
-            data.smallInstataneous[0][1] && (
+            data.VelocityofFlow &&
+            data.VelocityofFlow[0] &&
+            data.VelocityofFlow[0][1] && (
               <div className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8">
-                <span className="text-xs text-muted-foreground">Debit Air</span>
+                <span className="text-xs text-muted-foreground">
+                  Kecepatan Aliran
+                </span>
                 <span className="text-lg font-bold leading-none sm:text-xl">
                   <h1 className="flex items-center gap-1">
-                    {data.smallInstataneous[0][1] / 1000}
-                    <span className="text-xs font-thin">m³/s</span>
+                    {data.VelocityofFlow[0][1] / 1000}
+                    <span className="text-xs font-thin">m/s</span>
                   </h1>
                 </span>
               </div>
