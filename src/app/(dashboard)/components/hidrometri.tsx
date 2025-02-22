@@ -41,14 +41,24 @@ export default function Hidrometri() {
     { month: "June", tinggi: 214, debit: 140 },
   ];
 
-  // const chartData = data.map((entry, index) => ({
-  //   month: `Month ${index + 1}`,
-  //   tinggi: entry.suhu ? entry.suhu[0][1] : 0,
-  //   debit: entry.temperature ? entry.temperature[0][1] : 0,
-  // }));
+  // const chartData: any = {
+  //   month: `Month`,
+  //   tinggi:
+  //     data &&
+  //     data.waterLevel &&
+  //     data.waterLevel[0] &&
+  //     data.waterLevel[0][1] / 1000 &&
+  //     0,
+  //   debit:
+  //     data &&
+  //     data.VelocityofFlow &&
+  //     data.VelocityofFlow[0] &&
+  //     data.VelocityofFlow[0][1] / 1000 &&
+  //     0,
+  // };
 
   return (
-    <Card>
+    <Card className="col-span-3 row-span-2">
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
           <CardTitle>Hidrometri</CardTitle>
@@ -91,7 +101,6 @@ export default function Hidrometri() {
         </div>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-        {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
         <ChartContainer
           config={chartConfig}
           className="aspect-auto h-[300px] w-full"
