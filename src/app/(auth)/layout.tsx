@@ -4,6 +4,8 @@ import "../globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggler } from "@/components/theme-toggler";
 import { Toaster } from "@/components/ui/toaster";
+import Image from "next/image";
+import bgauth from "@/public/images/bgauth.png";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,7 +46,13 @@ export default function AuthLayout({
               {children}
             </div>
             <div className="w-1/2 justify-center items-center hidden sm:flex">
-              LOGO
+              <Image
+                src={bgauth}
+                alt="i"
+                width={1000}
+                height={1000}
+                className="w-full h-full object-cover object-center"
+              />
             </div>
           </main>
           <Toaster />
