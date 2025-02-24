@@ -30,6 +30,9 @@ import {
   UserCog,
   UserPen,
   UserRound,
+  Clock,
+  ClipboardCheck,
+  ClipboardX,
 } from "lucide-react";
 import { AccountSkeleton } from "./skeleton";
 import { auth } from "@/lib/firebase";
@@ -39,10 +42,16 @@ import { getCurrentUser } from "@/service";
 
 const monitoring = [
   { icon: <ChartSpline />, name: "Dashboard", href: "/" },
+  { icon: <Clock />, name: "Realtime Sensors", href: "/realtime-sensors" },
   { icon: <Cog />, name: "Devices", href: "/devices" },
 ];
 
 const master = [{ icon: <UserRound />, name: "User Data", href: "/user-data" }];
+
+const report = [
+  { icon: <ClipboardCheck />, name: "Laporan Bulanan", href: "/" },
+  { icon: <ClipboardX />, name: "Laporan Gangguan", href: "/" },
+];
 
 export function AppSidebar() {
   const [user, loading, error] = useAuthState(auth);
@@ -166,6 +175,28 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Reportase</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {report.map((item, i) => (
+                <SidebarMenuItem key={i}>
+                  <SidebarMenuButton
+                    asChild
+                    className="hover:bg-slate-100 dark:hover:bg-slate-900"
+                  >
+                    <Link href={item.href}>
+                      {item.icon}
+                      <span>{item.name}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
         <SidebarGroup>
           <SidebarGroupLabel>Master Data</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -186,6 +217,7 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
         <div className="absolute bottom-0 w-full flex items-center justify-center gap-x-2 px-2 h-10 bg-gradient-to-t from-white dark:from-slate-950 from-50% to-transparent">
           <p className="text-xs text-muted-foreground">
             © 2024. All Rights Reserved.

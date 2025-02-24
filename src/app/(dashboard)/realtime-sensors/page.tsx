@@ -1,14 +1,16 @@
 import Header from "@/components/header";
-import HomePage from "./components/home";
+import Kelistrikan from "../components/kelistrikan";
 
-export default function Home() {
+export default function RealtimeSensors() {
   return (
     <main>
       <Header
-        head="Sistem Monitoring PLTMH"
+        head="Realtime Sensors"
         body="Selamat datang di Website Sistem Monitoring dan Prediksi PLTMH Kincang, Banjarnegara. Selamat Bekerja!"
       />
-      <HomePage />
+      <div className="grid grid-cols-5 gap-4">
+        <Kelistrikan />
+      </div>
     </main>
   );
 }
