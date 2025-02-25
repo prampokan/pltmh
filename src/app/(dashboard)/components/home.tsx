@@ -8,17 +8,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { LatestTelemetry } from "@/service";
+import {
+  LatestTelemetryHidrometri,
+  LatestTelemetryPowermeter,
+} from "@/service";
 
 export default function HomePage() {
-  const dataHidrometri = LatestTelemetry(
-    "50826780-ec35-11ef-9389-77a321a8daf2",
-    20
-  );
-  const dataPowermeter = LatestTelemetry(
-    "e2d1b230-ec35-11ef-9389-77a321a8daf2",
-    10
-  );
+  const dataHidrometri = LatestTelemetryHidrometri();
+  const dataPowermeter = LatestTelemetryPowermeter();
   return (
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 xl:flex-row">

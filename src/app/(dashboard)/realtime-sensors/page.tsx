@@ -2,24 +2,21 @@
 
 import Header from "@/components/header";
 import RealtimeCard from "@/components/realtime-card";
-import { LatestTelemetry } from "@/service";
+import {
+  LatestTelemetryHidrometri,
+  LatestTelemetryPowermeter,
+} from "@/service";
 
 export default function RealtimeSensors() {
-  const dataHidrometri = LatestTelemetry(
-    "50826780-ec35-11ef-9389-77a321a8daf2",
-    20
-  );
-  const dataPowermeter = LatestTelemetry(
-    "e2d1b230-ec35-11ef-9389-77a321a8daf2",
-    10
-  );
+  const dataHidrometri = LatestTelemetryHidrometri();
+  const dataPowermeter = LatestTelemetryPowermeter();
   return (
     <main>
       <Header
         head="Realtime Sensors"
-        body="Selamat datang di Website Sistem Monitoring dan Prediksi PLTMH Kincang, Banjarnegara. Selamat Bekerja!"
+        body="Menampilkan semua data real time dari sensor."
       />
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-3">
         {dataHidrometri &&
           dataHidrometri.waterLevel &&
           dataHidrometri.waterLevel[0] &&

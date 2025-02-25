@@ -6,7 +6,10 @@ import {
   collection,
   doc,
   getDoc,
+  addDoc,
+  serverTimestamp,
 } from "firebase/firestore";
+import firebase from "firebase/app";
 import { useState, useEffect } from "react";
 
 export async function getCurrentUser(uid: string) {
@@ -91,8 +94,8 @@ export async function getUsers() {
 
 const token = await loginThingsBoard();
 
-export function LatestTelemetry(deviceId: any, cmdId: any) {
-  const [data, setData] = useState<any>([]);
+export function LatestTelemetryPowermeter() {
+  const [powermeter, setPowermeter] = useState<any>([]);
 
   useEffect(() => {
     const connectWebSocket = async () => {
@@ -106,8 +109,6 @@ export function LatestTelemetry(deviceId: any, cmdId: any) {
           `wss://thingsboard.cloud/api/ws/plugins/telemetry?token=${token}`
         );
 
-        // const entityId = await getDeviceById(deviceId);
-
         ws.onopen = () => {
           console.log("WebSocket connected");
           ws.send(
@@ -115,9 +116,9 @@ export function LatestTelemetry(deviceId: any, cmdId: any) {
               tsSubCmds: [
                 {
                   entityType: "DEVICE",
-                  entityId: deviceId,
+                  entityId: "e2d1b230-ec35-11ef-9389-77a321a8daf2",
                   scope: "LATEST_TELEMETRY",
-                  cmdId: cmdId,
+                  cmdId: 10,
                   type: "TIMESERIES",
                 },
               ],
@@ -127,9 +128,13 @@ export function LatestTelemetry(deviceId: any, cmdId: any) {
 
         ws.onmessage = (message) => {
           const response = JSON.parse(message.data);
-          console.log("Telemetry received:", response.data);
+          console.log("Telemetry received");
 
-          setData(response.data);
+          setPowermeter(response.data);
+          // saveDataToFirestorePowermeter(
+          //   response.data.Value12[0][1],
+          //   response.data.Value20[0][1]
+          // );
         };
 
         ws.onerror = (error) => console.error("WebSocket error:", error);
@@ -144,5 +149,95 @@ export function LatestTelemetry(deviceId: any, cmdId: any) {
     connectWebSocket();
   }, []);
 
-  return data;
+  return powermeter;
 }
+
+export function LatestTelemetryHidrometri() {
+  const [hidrometri, setHidrometri] = useState<any>([]);
+
+  useEffect(() => {
+    const connectWebSocket = async () => {
+      try {
+        if (!token) {
+          console.error("Token tidak ditemukan!");
+          return;
+        }
+
+        const ws = new WebSocket(
+          `wss://thingsboard.cloud/api/ws/plugins/telemetry?token=${token}`
+        );
+
+        ws.onopen = () => {
+          console.log("WebSocket connected");
+          ws.send(
+            JSON.stringify({
+              tsSubCmds: [
+                {
+                  entityType: "DEVICE",
+                  entityId: "50826780-ec35-11ef-9389-77a321a8daf2",
+                  scope: "LATEST_TELEMETRY",
+                  cmdId: 20,
+                  type: "TIMESERIES",
+                },
+              ],
+            })
+          );
+        };
+
+        ws.onmessage = (message) => {
+          const response = JSON.parse(message.data);
+          console.log("Telemetry received");
+
+          setHidrometri(response.data);
+          // saveDataToFirestoreHidrometri(
+          //   response.data.waterLevel[0][1],
+          //   response.data.VelocityofFlow[0][1]
+          // );
+        };
+
+        ws.onerror = (error) => console.error("WebSocket error:", error);
+        ws.onclose = () => console.log("WebSocket disconnected");
+
+        return () => ws.close();
+      } catch (error) {
+        console.error("Error connecting to WebSocket:", error);
+      }
+    };
+
+    connectWebSocket();
+  }, []);
+
+  return hidrometri;
+}
+
+const saveDataToFirestorePowermeter = async (
+  activePower: any,
+  speedTurbin: any
+) => {
+  try {
+    const docRef = await addDoc(collection(db, "powermeterHistory"), {
+      activePower: activePower,
+      speedTurbin: speedTurbin,
+      timestamp: serverTimestamp(),
+    });
+    console.log("Data saved to Firestore with ID: ", docRef.id);
+  } catch (error) {
+    console.error("Error saving data to Firestore:", error);
+  }
+};
+
+const saveDataToFirestoreHidrometri = async (
+  waterLevel: any,
+  velocityOfFlow: any
+) => {
+  try {
+    const docRef = await addDoc(collection(db, "hidrometriHistory"), {
+      activePower: waterLevel,
+      speedTurbin: velocityOfFlow,
+      timestamp: serverTimestamp(),
+    });
+    console.log("Data saved to Firestore with ID: ", docRef.id);
+  } catch (error) {
+    console.error("Error saving data to Firestore:", error);
+  }
+};
