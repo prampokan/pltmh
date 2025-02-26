@@ -33,6 +33,8 @@ import {
   Clock,
   ClipboardCheck,
   ClipboardX,
+  Zap,
+  Waves,
 } from "lucide-react";
 import { AccountSkeleton } from "./skeleton";
 import { auth } from "@/lib/firebase";
@@ -51,6 +53,11 @@ const master = [{ icon: <UserRound />, name: "User Data", href: "/user-data" }];
 const report = [
   { icon: <ClipboardCheck />, name: "Laporan Bulanan", href: "/" },
   { icon: <ClipboardX />, name: "Laporan Gangguan", href: "/" },
+];
+
+const history = [
+  { icon: <Zap />, name: "Powermeter History", href: "/" },
+  { icon: <Waves />, name: "Hidrometri History", href: "/" },
 ];
 
 export function AppSidebar() {
@@ -160,6 +167,27 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {monitoring.map((item, i) => (
+                <SidebarMenuItem key={i}>
+                  <SidebarMenuButton
+                    asChild
+                    className="hover:bg-slate-100 dark:hover:bg-slate-900"
+                  >
+                    <Link href={item.href}>
+                      {item.icon}
+                      <span>{item.name}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Data History</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {history.map((item, i) => (
                 <SidebarMenuItem key={i}>
                   <SidebarMenuButton
                     asChild

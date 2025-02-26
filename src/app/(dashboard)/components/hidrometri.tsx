@@ -16,7 +16,7 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart";
-import { LatestTelemetry } from "@/service";
+import { LatestTelemetryHidrometri } from "@/service";
 
 const chartConfig = {
   tinggi: {
@@ -30,7 +30,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export default function Hidrometri() {
-  const data = LatestTelemetry("50826780-ec35-11ef-9389-77a321a8daf2", 20);
+  const data = LatestTelemetryHidrometri();
 
   const chartData = [
     { month: "January", tinggi: 186, debit: 80 },

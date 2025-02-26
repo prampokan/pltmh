@@ -7,10 +7,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { LatestTelemetry } from "@/service";
+import { LatestTelemetryPowermeter } from "@/service";
 
 export default function Kelistrikan() {
-  const data = LatestTelemetry("e2d1b230-ec35-11ef-9389-77a321a8daf2", 10);
+  const data = LatestTelemetryPowermeter();
 
   return (
     <>
