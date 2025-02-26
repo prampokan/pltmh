@@ -24,9 +24,7 @@ export default function RevenuePrediction() {
       <div className="border-b p-4 flex justify-between">
         <div>
           <h1 className="font-bold">Revenue Prediction</h1>
-          <p className="text-sm text-muted-foreground">
-            Prediksi cuan cuan cuan🤑.
-          </p>
+          <p className="text-sm text-muted-foreground">Prediksi Omset PLTMH.</p>
         </div>
         <Select onValueChange={(value) => setPeriod(Number(value))}>
           <SelectTrigger className="w-[130px]">
@@ -40,7 +38,7 @@ export default function RevenuePrediction() {
         </Select>
       </div>
       <div className="p-4 flex items-center justify-center h-64">
-        <h1 className="font-semibold text-xl tracking-tight">
+        <h1 className="font-bold text-xl tracking-tight">
           {formatCurrency(revenuePrediction)}
         </h1>
       </div>
