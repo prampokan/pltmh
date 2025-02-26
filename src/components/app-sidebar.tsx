@@ -56,8 +56,8 @@ const report = [
 ];
 
 const history = [
-  { icon: <Zap />, name: "Powermeter History", href: "/" },
-  { icon: <Waves />, name: "Hidrometri History", href: "/" },
+  { icon: <Zap />, name: "Powermeter History", href: "/powermeter-history" },
+  { icon: <Waves />, name: "Hidrometri History", href: "/hidrometri-history" },
 ];
 
 export function AppSidebar() {

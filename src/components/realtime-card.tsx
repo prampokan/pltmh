@@ -1,6 +1,6 @@
 export default function RealtimeCard({ title, description, value, unit }: any) {
   return (
-    <div className="w-full border rounded-lg">
+    <div className="w-full border rounded-lg cursor-pointer hover:bg-muted transition-all duration-300">
       <div className="border-b p-4">
         <h1 className="font-bold">{title}</h1>
         <p className="text-sm text-muted-foreground">

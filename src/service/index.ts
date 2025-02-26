@@ -131,10 +131,10 @@ export function LatestTelemetryPowermeter() {
           console.log("Telemetry received");
 
           setPowermeter(response.data);
-          saveDataToFirestorePowermeter(
-            response.data.Value12[0][1],
-            response.data.Value20[0][1]
-          );
+          // saveDataToFirestorePowermeter(
+          //   response.data.Value12[0][1],
+          //   response.data.Value20[0][1]
+          // );
         };
 
         ws.onerror = (error) => console.error("WebSocket error:", error);
@@ -189,10 +189,10 @@ export function LatestTelemetryHidrometri() {
           console.log("Telemetry received");
 
           setHidrometri(response.data);
-          saveDataToFirestoreHidrometri(
-            response.data.waterLevel[0][1],
-            response.data.VelocityofFlow[0][1]
-          );
+          // saveDataToFirestoreHidrometri(
+          //   response.data.waterLevel[0][1],
+          //   response.data.VelocityofFlow[0][1]
+          // );
         };
 
         ws.onerror = (error) => console.error("WebSocket error:", error);
