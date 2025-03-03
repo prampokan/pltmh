@@ -40,7 +40,7 @@ export default function ElectricityProduction() {
         </Select>
       </div>
       <div className="p-4 flex items-center justify-center h-64">
-        <h1 className="font-bold text-xl">
+        <h1 className="font-bold text-2xl tracking-tight">
           {formatNumber(activePowetByPeriod)}{" "}
           <span className="text-sm font-light">kW</span>
         </h1>

@@ -51,7 +51,11 @@ const monitoring = [
 const master = [{ icon: <UserRound />, name: "User Data", href: "/user-data" }];
 
 const report = [
-  { icon: <ClipboardCheck />, name: "Laporan Bulanan", href: "/" },
+  {
+    icon: <ClipboardCheck />,
+    name: "Laporan Bulanan",
+    href: "/monthly-report",
+  },
   { icon: <ClipboardX />, name: "Laporan Gangguan", href: "/" },
 ];
 

@@ -9,8 +9,7 @@ import {
   addDoc,
   serverTimestamp,
 } from "firebase/firestore";
-import firebase from "firebase/app";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export async function getCurrentUser(uid: string) {
   if (!uid) return;
@@ -131,10 +130,9 @@ export function LatestTelemetryPowermeter() {
           console.log("Telemetry received");
 
           setPowermeter(response.data);
-          // saveDataToFirestorePowermeter(
-          //   response.data.Value12[0][1],
-          //   response.data.Value20[0][1]
-          // );
+
+          // Simpan data ke Firestore setiap 24 jam pada jam 00:00 WIB
+          scheduleFirestoreSave(response.data.Value12[0][1]);
         };
 
         ws.onerror = (error) => console.error("WebSocket error:", error);
@@ -148,6 +146,42 @@ export function LatestTelemetryPowermeter() {
 
     connectWebSocket();
   }, []);
+
+  const scheduleFirestoreSave = (value: any) => {
+    const now = new Date();
+    const wibOffset = 7 * 60; // WIB adalah UTC+7
+    const targetTime = new Date(now);
+
+    // Set target time to 00:00 WIB
+    targetTime.setHours(0, 0, 0, 0);
+    targetTime.setMinutes(targetTime.getMinutes() + wibOffset);
+
+    // Jika waktu sekarang sudah lewat 00:00 WIB, set target ke hari berikutnya
+    if (now > targetTime) {
+      targetTime.setDate(targetTime.getDate() + 1);
+    }
+
+    const timeUntilTarget = targetTime.getTime() - now.getTime();
+
+    setTimeout(() => {
+      saveActivePowerPerDay(value);
+
+      // Set interval untuk setiap 24 jam setelahnya
+      setInterval(() => saveActivePowerPerDay(value), 24 * 60 * 60 * 1000);
+    }, timeUntilTarget);
+  };
+
+  const saveActivePowerPerDay = async (value: any) => {
+    try {
+      const docRef = await addDoc(collection(db, "powermeterData"), {
+        value: value,
+        timestamp: new Date(),
+      });
+      console.log("Data saved to Firestore with ID:", docRef.id);
+    } catch (error) {
+      console.error("Error saving to Firestore:", error);
+    }
+  };
 
   return powermeter;
 }

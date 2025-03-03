@@ -38,7 +38,7 @@ export default function RevenuePrediction() {
         </Select>
       </div>
       <div className="p-4 flex items-center justify-center h-64">
-        <h1 className="font-bold text-xl tracking-tight">
+        <h1 className="font-bold text-2xl tracking-tight">
           {formatCurrency(revenuePrediction)}
         </h1>
       </div>
