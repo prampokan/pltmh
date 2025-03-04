@@ -7,12 +7,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { LatestTelemetryPowermeter } from "@/service";
 import { formatCurrency } from "@/service/helper";
 import { useState } from "react";
 
-export default function RevenuePrediction() {
-  const dataPowermeter = LatestTelemetryPowermeter();
+export default function RevenuePrediction({
+  dataPowermeter,
+}: {
+  dataPowermeter: any;
+}) {
   const [period, setPeriod] = useState(1);
 
   let activePower = dataPowermeter?.Value12?.[0]?.[1] ?? 0;

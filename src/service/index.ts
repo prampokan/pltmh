@@ -95,6 +95,8 @@ const token = await loginThingsBoard();
 
 export function LatestTelemetryPowermeter() {
   const [powermeter, setPowermeter] = useState<any>([]);
+  const latestValue12 = useRef<number | null>(null); // Menyimpan nilai terbaru
+  const intervalRef = useRef<NodeJS.Timeout | null>(null); // Menyimpan referensi setInterval
 
   useEffect(() => {
     const connectWebSocket = async () => {
@@ -129,10 +131,13 @@ export function LatestTelemetryPowermeter() {
           const response = JSON.parse(message.data);
           console.log("Telemetry received");
 
-          setPowermeter(response.data);
+          latestValue12.current = response?.data?.Value12?.[0]?.[1] ?? null;
 
-          // Simpan data ke Firestore setiap 24 jam pada jam 00:00 WIB
-          scheduleFirestoreSave(response.data.Value12[0][1]);
+          setPowermeter(response.data);
+          // saveHistoryPowermeter(
+          //   response.data.waterLevel[0][1],
+          //   response.data.VelocityofFlow[0][1]
+          // );
         };
 
         ws.onerror = (error) => console.error("WebSocket error:", error);
@@ -145,41 +150,34 @@ export function LatestTelemetryPowermeter() {
     };
 
     connectWebSocket();
+
+    // intervalRef.current = setInterval(() => {
+    //   if (latestValue12.current !== null) {
+    //     saveDailyReport(latestValue12.current * 24);
+    //   }
+    // }, 10000); // 1 jam = 3600000 ms
+
+    // return () => {
+    //   if (intervalRef.current) {
+    //     clearInterval(intervalRef.current);
+    //   }
+    // };
   }, []);
 
-  const scheduleFirestoreSave = (value: any) => {
-    const now = new Date();
-    const wibOffset = 7 * 60; // WIB adalah UTC+7
-    const targetTime = new Date(now);
-
-    // Set target time to 00:00 WIB
-    targetTime.setHours(0, 0, 0, 0);
-    targetTime.setMinutes(targetTime.getMinutes() + wibOffset);
-
-    // Jika waktu sekarang sudah lewat 00:00 WIB, set target ke hari berikutnya
-    if (now > targetTime) {
-      targetTime.setDate(targetTime.getDate() + 1);
-    }
-
-    const timeUntilTarget = targetTime.getTime() - now.getTime();
-
-    setTimeout(() => {
-      saveActivePowerPerDay(value);
-
-      // Set interval untuk setiap 24 jam setelahnya
-      setInterval(() => saveActivePowerPerDay(value), 24 * 60 * 60 * 1000);
-    }, timeUntilTarget);
-  };
-
-  const saveActivePowerPerDay = async (value: any) => {
+  const saveDailyReport = async (value12: number) => {
     try {
-      const docRef = await addDoc(collection(db, "powermeterData"), {
-        value: value,
-        timestamp: new Date(),
+      await addDoc(collection(db, "monthlyReport"), {
+        powerResult: value12,
+        operationalHours: 24,
+        averagePerHour: value12 / 24,
+        operator: "",
+        guard: "",
+        information: "Normal",
+        timestamp: serverTimestamp(),
       });
-      console.log("Data saved to Firestore with ID:", docRef.id);
+      console.log("Data saved to Firestore:", value12);
     } catch (error) {
-      console.error("Error saving to Firestore:", error);
+      console.error("Error saving data to Firestore:", error);
     }
   };
 
@@ -223,7 +221,7 @@ export function LatestTelemetryHidrometri() {
           console.log("Telemetry received");
 
           setHidrometri(response.data);
-          // saveDataToFirestoreHidrometri(
+          // saveHistoryHidrometri(
           //   response.data.waterLevel[0][1],
           //   response.data.VelocityofFlow[0][1]
           // );
@@ -244,10 +242,7 @@ export function LatestTelemetryHidrometri() {
   return hidrometri;
 }
 
-const saveDataToFirestorePowermeter = async (
-  activePower: any,
-  speedTurbin: any
-) => {
+const saveHistoryPowermeter = async (activePower: any, speedTurbin: any) => {
   try {
     const docRef = await addDoc(collection(db, "powermeterHistory"), {
       activePower: activePower,
@@ -260,10 +255,7 @@ const saveDataToFirestorePowermeter = async (
   }
 };
 
-const saveDataToFirestoreHidrometri = async (
-  waterLevel: any,
-  velocityOfFlow: any
-) => {
+const saveHistoryHidrometri = async (waterLevel: any, velocityOfFlow: any) => {
   try {
     const docRef = await addDoc(collection(db, "hidrometriHistory"), {
       waterLevel: waterLevel,

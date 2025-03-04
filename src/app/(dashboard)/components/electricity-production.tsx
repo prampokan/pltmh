@@ -8,11 +8,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { LatestTelemetryPowermeter } from "@/service";
 import { formatNumber } from "@/service/helper";
 
-export default function ElectricityProduction() {
-  const dataPowermeter = LatestTelemetryPowermeter();
+export default function ElectricityProduction({
+  dataPowermeter,
+}: {
+  dataPowermeter: any;
+}) {
   const [period, setPeriod] = useState(1);
 
   let activePower = dataPowermeter?.Value12?.[0]?.[1] ?? 0;

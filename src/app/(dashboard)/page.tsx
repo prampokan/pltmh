@@ -1,10 +1,18 @@
+"use client";
+
 import Header from "@/components/header";
-import HomePage from "./components/home";
+import Overview from "./components/overview";
 import RevenuePrediction from "./components/revenue-prediction";
 import ElectricityProduction from "./components/electricity-production";
 import Location from "./components/location";
+import {
+  LatestTelemetryHidrometri,
+  LatestTelemetryPowermeter,
+} from "@/service";
 
 export default function Home() {
+  const dataPowermeter = LatestTelemetryPowermeter();
+  const dataHidrometri = LatestTelemetryHidrometri();
   return (
     <main>
       <Header
@@ -12,10 +20,13 @@ export default function Home() {
         body="Selamat datang di Website Sistem Monitoring dan Prediksi PLTMH Kincang, Banjarnegara. Selamat Bekerja!"
       />
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-        <ElectricityProduction />
-        <RevenuePrediction />
+        <ElectricityProduction dataPowermeter={dataPowermeter} />
+        <RevenuePrediction dataPowermeter={dataPowermeter} />
         <Location />
-        <HomePage />
+        <Overview
+          dataPowermeter={dataPowermeter}
+          dataHidrometri={dataHidrometri}
+        />
       </div>
     </main>
   );

@@ -15,64 +15,44 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
 import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
-import { Pen, Sheet } from "lucide-react";
+import { FilePlus2, Pen, Sheet, Trash2 } from "lucide-react";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
-
-const DATA = [
-  {
-    kwhTotal: 3700000000,
-    hasil: 3300,
-    jamOperasional: 24,
-    avgPerHour: 150,
-    operator: "usman",
-    penjaga: "nadri",
-    keterangan: "normal",
-  },
-  {
-    kwhTotal: 3700000000,
-    hasil: 3300,
-    jamOperasional: 24,
-    avgPerHour: 150,
-    operator: "usman",
-    penjaga: "nadri",
-    keterangan: "normal",
-  },
-  {
-    kwhTotal: 3700000000,
-    hasil: 3300,
-    jamOperasional: 24,
-    avgPerHour: 150,
-    operator: "usman",
-    penjaga: "nadri",
-    keterangan: "normal",
-  },
-  {
-    kwhTotal: 3700000000,
-    hasil: 3300,
-    jamOperasional: 24,
-    avgPerHour: 150,
-    operator: "usman",
-    penjaga: "nadri",
-    keterangan: "normal",
-  },
-  {
-    kwhTotal: 3700000000,
-    hasil: 3300,
-    jamOperasional: 24,
-    avgPerHour: 150,
-    operator: "usman",
-    penjaga: "nadri",
-    keterangan: "normal",
-  },
-];
+import { db } from "@/lib/firebase";
+import { getDocs, orderBy, query, collection } from "firebase/firestore";
+import { useState, useEffect } from "react";
+import { formatDate } from "@/service/helper";
 
 export default function MonthlyReport() {
+  const [monthlyReport, setMonthlyReport] = useState([]);
+
+  useEffect(() => {
+    getMonthlyReport();
+  }, []);
+
+  console.log(monthlyReport);
+
+  const getMonthlyReport = async () => {
+    try {
+      const q = query(
+        collection(db, "monthlyReport"),
+        orderBy("timestamp", "desc")
+      );
+      const snapshot = await getDocs(q);
+      const data: any = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setMonthlyReport(data);
+    } catch (error) {
+      console.error("Error getting devices: ", error);
+    }
+  };
+
   const exportToExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(DATA);
+    const worksheet = XLSX.utils.json_to_sheet(monthlyReport);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Laporan Bulanan");
 
@@ -90,27 +70,32 @@ export default function MonthlyReport() {
   return (
     <>
       <Header head="Laporan Bulanan" body="Menampilkan Laporan Bulanan." />
-      <div className="flex gap-x-2 mb-5">
-        <Button variant="outline" onClick={exportToExcel}>
-          <Sheet />
-          Unduh Laporan
+      <div className="flex justify-between mb-5">
+        <div className="flex gap-x-2">
+          <Select>
+            <SelectTrigger className="w-[200px]">
+              <SelectValue placeholder="Pilih Bulan" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="24">Januari 2025</SelectItem>
+              <SelectItem value="720">Februari 2025</SelectItem>
+              <SelectItem value="8760">Maret 2025</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button variant="outline" onClick={exportToExcel}>
+            <Sheet />
+            Download Laporan
+          </Button>
+        </div>
+        <Button variant="outline">
+          <FilePlus2 />
+          Buat Laporan Manual
         </Button>
-        <Select>
-          <SelectTrigger className="w-[200px]">
-            <SelectValue placeholder="Pilih Bulan" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="24">Januari 2025</SelectItem>
-            <SelectItem value="720">Februari 2025</SelectItem>
-            <SelectItem value="8760">Maret 2025</SelectItem>
-          </SelectContent>
-        </Select>
       </div>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Tanggal</TableHead>
-            <TableHead>kWh Total</TableHead>
+            <TableHead>Tanggal</TableHead>
             <TableHead>Hasil</TableHead>
             <TableHead>Jam Operasional</TableHead>
             <TableHead>Rata - rata per jam</TableHead>
@@ -121,24 +106,29 @@ export default function MonthlyReport() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {DATA.map((item, i) => (
-            <TableRow key={i}>
-              <TableCell className="font-medium">{i + 1}</TableCell>
-              <TableCell>{item.kwhTotal}</TableCell>
-              <TableCell>{item.hasil}</TableCell>
-              <TableCell>{item.jamOperasional}</TableCell>
-              <TableCell>{item.avgPerHour}</TableCell>
-              <TableCell>{item.operator}</TableCell>
-              <TableCell>{item.penjaga}</TableCell>
-              <TableCell>{item.keterangan}</TableCell>
-              <TableCell className="text-right space-x-2">
-                <Button variant="outline">
-                  <Pen />
-                  Edit
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
+          {monthlyReport &&
+            monthlyReport.map((item: any) => (
+              <TableRow key={item.id}>
+                <TableCell className="font-medium">
+                  {formatDate(item.timestamp)}
+                </TableCell>
+                <TableCell>{item.powerResult}</TableCell>
+                <TableCell>{item.operationalHours}</TableCell>
+                <TableCell>{item.averagePerHour}</TableCell>
+                <TableCell>{item.operator}</TableCell>
+                <TableCell>{item.guard}</TableCell>
+                <TableCell>{item.information}</TableCell>
+                <TableCell className="text-right space-x-2">
+                  <Button variant="outline">
+                    <Pen />
+                    Edit
+                  </Button>
+                  <Button variant="outline" size="icon">
+                    <Trash2 />
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </>

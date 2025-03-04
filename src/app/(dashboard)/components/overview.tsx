@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import {
   Card,
@@ -8,14 +6,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  LatestTelemetryHidrometri,
-  LatestTelemetryPowermeter,
-} from "@/service";
 
-export default function HomePage() {
-  const dataHidrometri = LatestTelemetryHidrometri();
-  const dataPowermeter = LatestTelemetryPowermeter();
+export default function Overview({
+  dataPowermeter,
+  dataHidrometri,
+}: {
+  dataPowermeter: any;
+  dataHidrometri: any;
+}) {
   return (
     <Card className="col-span-1 lg:col-span-2 xl:col-span-3">
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 xl:flex-row">
