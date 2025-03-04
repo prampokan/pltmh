@@ -21,12 +21,25 @@ import { FilePlus2, Pen, Sheet, Trash2 } from "lucide-react";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { db } from "@/lib/firebase";
-import { getDocs, orderBy, query, collection } from "firebase/firestore";
+import {
+  getDocs,
+  orderBy,
+  query,
+  collection,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { formatDate } from "@/service/helper";
+import Link from "next/link";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 export default function MonthlyReport() {
   const [monthlyReport, setMonthlyReport] = useState([]);
+
+  const { toast } = useToast();
+  const router = useRouter();
 
   useEffect(() => {
     getMonthlyReport();
@@ -65,6 +78,19 @@ export default function MonthlyReport() {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     });
     saveAs(data, "Laporan_Bulanan.xlsx");
+  };
+
+  const deleteReport = async (id: string) => {
+    try {
+      await deleteDoc(doc(db, "monthlyReport", id));
+      toast({
+        title: "Report Deleted",
+        description: "Report Deleted Successfully",
+      });
+      getMonthlyReport();
+    } catch (error) {
+      console.error("error :", error);
+    }
   };
 
   return (
@@ -119,11 +145,17 @@ export default function MonthlyReport() {
                 <TableCell>{item.guard}</TableCell>
                 <TableCell>{item.information}</TableCell>
                 <TableCell className="text-right space-x-2">
-                  <Button variant="outline">
-                    <Pen />
-                    Edit
-                  </Button>
-                  <Button variant="outline" size="icon">
+                  <Link href={`/monthly-report/edit/${item.id}`}>
+                    <Button variant="outline">
+                      <Pen />
+                      Edit
+                    </Button>
+                  </Link>
+                  <Button
+                    onClick={() => deleteReport(item.id)}
+                    variant="outline"
+                    size="icon"
+                  >
                     <Trash2 />
                   </Button>
                 </TableCell>

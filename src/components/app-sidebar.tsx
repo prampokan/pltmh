@@ -56,7 +56,7 @@ const report = [
     name: "Laporan Bulanan",
     href: "/monthly-report",
   },
-  { icon: <ClipboardX />, name: "Laporan Gangguan", href: "/" },
+  { icon: <ClipboardX />, name: "Laporan Gangguan", href: "/breakdown-report" },
 ];
 
 const history = [
