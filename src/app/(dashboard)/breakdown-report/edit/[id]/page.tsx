@@ -70,7 +70,7 @@ export default function Edit() {
 
   return (
     <>
-      <Header head="Edit Laporan Bulanan" body="Edit Laporan Bulanan." />
+      <Header head="Edit Laporan Gangguan" body="Edit Laporan Gangguan." />
       <form className="w-full md:w-1/2" onSubmit={handleSubmit}>
         <Label>Jam Padam</Label>
         <Input
