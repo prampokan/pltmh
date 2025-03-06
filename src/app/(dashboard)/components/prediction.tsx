@@ -64,8 +64,10 @@ export default function Prediction() {
     getPrediction();
   }, []);
 
-  const chartData = prediction.lstm_predictions.map((_, index) => ({
-    minutes: index + 1,
+  const minutes = ["m 1", "m 2", "m 3", "m 4", "m 5", "m 6", "m 7"];
+
+  const chartData = minutes.map((minute, index) => ({
+    minute,
     LSTM: Math.round(prediction.lstm_predictions[index] || 0),
     GRU: Math.round(prediction.gru_predictions[index] || 0),
   }));
@@ -90,11 +92,11 @@ export default function Prediction() {
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="minutes"
+              dataKey="minute"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.toString().slice(0, 3)}
+              tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Line
