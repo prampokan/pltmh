@@ -129,14 +129,14 @@ export function LatestTelemetryPowermeter() {
 
         ws.onmessage = (message) => {
           const response = JSON.parse(message.data);
-          console.log("Telemetry received");
+          console.log("Telemetry received", response.data);
 
-          latestValue12.current = response?.data?.Value12?.[0]?.[1] ?? null;
+          latestValue12.current = response?.data?.Value27?.[0]?.[1] ?? null;
 
           setPowermeter(response.data);
           // saveHistoryPowermeter(
-          //   response.data.waterLevel[0][1],
-          //   response.data.VelocityofFlow[0][1]
+          //   response.data.Value27[0][1],
+          //   response.data.Value20[0][1]
           // );
         };
 

@@ -17,7 +17,7 @@ export default function RevenuePrediction({
 }) {
   const [period, setPeriod] = useState(1);
 
-  let activePower = dataPowermeter?.Value12?.[0]?.[1] ?? 0;
+  let activePower = dataPowermeter?.Value27?.[0]?.[1] ?? 0;
 
   let revenuePrediction = (activePower / 10) * 600 * period;
 

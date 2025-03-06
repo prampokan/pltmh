@@ -15,6 +15,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { FilePlus2, Pen, Sheet, Trash2 } from "lucide-react";
@@ -33,13 +45,11 @@ import { useState, useEffect } from "react";
 import { formatDate } from "@/service/helper";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
 
 export default function MonthlyReport() {
   const [monthlyReport, setMonthlyReport] = useState([]);
 
   const { toast } = useToast();
-  const router = useRouter();
 
   useEffect(() => {
     getMonthlyReport();
@@ -113,10 +123,12 @@ export default function MonthlyReport() {
             Download Laporan
           </Button>
         </div>
-        <Button variant="outline">
-          <FilePlus2 />
-          Buat Laporan Manual
-        </Button>
+        <Link href="/monthly-report/add">
+          <Button variant="outline">
+            <FilePlus2 />
+            Buat Laporan Manual
+          </Button>
+        </Link>
       </div>
       <Table>
         <TableHeader>
@@ -151,13 +163,34 @@ export default function MonthlyReport() {
                       Edit
                     </Button>
                   </Link>
-                  <Button
-                    onClick={() => deleteReport(item.id)}
-                    variant="outline"
-                    size="icon"
-                  >
-                    <Trash2 />
-                  </Button>
+
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button variant="outline" size="icon">
+                        <Trash2 />
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>
+                          Are you absolutely sure?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                          This action cannot be undone. This will permanently
+                          delete your account and remove your data from our
+                          servers.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => deleteReport(item.id)}
+                        >
+                          Delete
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </TableCell>
               </TableRow>
             ))}

@@ -15,8 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PLTMH Kincang",
-  description: "Sistem Monitoring PLTMH Kincang",
+  title: "PLTMH Kincang - Sistem Monitoring PLTMH Kincang",
+  description: "Sistem Monitoring PLTMH Kincang, Banjarnegara, Jawa Tengah",
+  icons: {
+    icon: "favicon.ico",
+  },
 };
 
 export default function RootLayout({

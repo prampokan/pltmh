@@ -38,22 +38,22 @@ export default function RealtimeSensors() {
             />
           )}
         {dataPowermeter &&
-          dataPowermeter.Value12 &&
-          dataPowermeter.Value12[0] &&
-          dataPowermeter.Value12[0][1] && (
+          dataPowermeter.Value27 &&
+          dataPowermeter.Value27[0] &&
+          dataPowermeter.Value27[0][1] && (
             <RealtimeCard
               title="Active Power"
-              value={dataPowermeter.Value12[0][1] / 10}
+              value={dataPowermeter.Value27[0][1] / 10}
               unit="kW"
             />
           )}
         {dataPowermeter &&
-          dataPowermeter.Value14 &&
-          dataPowermeter.Value14[0] &&
-          dataPowermeter.Value14[0][1] && (
+          dataPowermeter.Value29 &&
+          dataPowermeter.Value29[0] &&
+          dataPowermeter.Value29[0][1] && (
             <RealtimeCard
               title="Power Factor"
-              value={dataPowermeter.Value14[0][1] / 1000}
+              value={dataPowermeter.Value29[0][1] / 1000}
               unit="PF"
             />
           )}
@@ -68,12 +68,12 @@ export default function RealtimeSensors() {
             />
           )}
         {dataPowermeter &&
-          dataPowermeter.Value15 &&
-          dataPowermeter.Value15[0] &&
-          dataPowermeter.Value15[0][1] && (
+          dataPowermeter.Value30 &&
+          dataPowermeter.Value30[0] &&
+          dataPowermeter.Value30[0][1] && (
             <RealtimeCard
               title="Frequency"
-              value={dataPowermeter.Value12[0][1] / 100}
+              value={dataPowermeter.Value30[0][1] / 100}
               unit="Hz"
             />
           )}

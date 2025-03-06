@@ -62,12 +62,12 @@ export default function Overview({
                 Daya Listrik
               </span>
               {dataPowermeter &&
-                dataPowermeter.Value12 &&
-                dataPowermeter.Value12[0] &&
-                dataPowermeter.Value12[0][1] && (
+                dataPowermeter.Value27 &&
+                dataPowermeter.Value27[0] &&
+                dataPowermeter.Value27[0][1] && (
                   <span className="text-lg font-bold leading-none sm:text-xl">
                     <h1 className="flex items-center gap-1">
-                      {dataPowermeter.Value12[0][1] / 10}
+                      {dataPowermeter.Value27[0][1] / 10}
                       <span className="text-xs font-thin">kW</span>
                     </h1>
                   </span>
@@ -94,7 +94,7 @@ export default function Overview({
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <Image
-          src="/pltmh3.png"
+          src="/pltmh.png"
           alt="image"
           width={1500}
           height={1500}
